@@ -1,5 +1,6 @@
 name: Website Deployment
 on:
+  workflow_call:  #is used to call the  workflow 
   push:
     branches:
       - main
@@ -73,7 +74,7 @@ jobs:
       artifact-name : dist-files
     # secrets:
     #   inputser: ${{secrets.inputser}}
-  print-deploy-result: 
+  print-deploy-result:  # used to print the output  the deploy output
     needs: deploy
     runs-on: ubuntu-latest
     steps:

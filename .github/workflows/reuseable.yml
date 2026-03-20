@@ -1,13 +1,13 @@
 name : reuseable
 on: 
   workflow_call:
-    inputs: 
-        artifact-name :
-            description: The name of the deployable artifact files
+    inputs:   # used to get input 
+        artifact-name :  # 
+            description: The name of the deployable artifact files 
             required: false
-            default: dist
+            default: dist # default value 
             type: string
-    outputs: 
+    outputs:  # used to print the output 
       result: 
         description: the result of the deployment operation 
         value : ${{ jobs.deploy.outputs.outcome}}
@@ -19,7 +19,7 @@ jobs:
   deploy:
     runs-on : ubuntu-latest
     outputs:
-      outcome: ${{ steps.set-result.outputs.step-result }}
+      outcome: ${{ steps.set-result.outputs.step-result }} #  this methood is used to get the result to output
     steps:
        - name: Get build artifacts
          uses: actions/download-artifact@v4
@@ -33,4 +33,4 @@ jobs:
          run: echo "Deploying..."
        - name: set result output
          id: set-result
-         run: echo "::set-output name=step-result::success" 
+         run: echo "::set-output name=step-result::success"  # here we are setting the output as success
