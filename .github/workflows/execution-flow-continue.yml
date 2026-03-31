@@ -17,9 +17,9 @@ jobs:
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm ci # mvn install
       - name: Lint code
-        run: npm run lint
+        run: npm run lint #mvn checkstyle:check
   test:
     runs-on: ubuntu-latest
     steps:
@@ -37,7 +37,7 @@ jobs:
       - name: Test code
         continue-on-error: true
         id : run-tests # id is given so we can write a condition
-        run: npm run test
+        run: npm run test # mvn test
       - name: Upload test report # below line tell whether the test case is fail using the id above 
         uses: actions/upload-artifact@v4
         with:
@@ -60,7 +60,8 @@ jobs:
         run: npm ci
       - name: Build website
         id: build-website
-        run: npm run build
+        run: npm run build #mvn clean install -DskipTests
+                            #mvn package 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
